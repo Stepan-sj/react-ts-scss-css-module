@@ -24,7 +24,6 @@ function HookPage() {
     return (
         <>
             <div>hookPage {count}</div>
-            <span>11</span>
             <Button onClick={handleClick}>nihao</Button>
             <Editor
                 ref={ref}

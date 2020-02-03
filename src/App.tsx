@@ -4,7 +4,7 @@ import style from './App.css';
 
 import { Provider } from 'mobx-react'
 
-import { Route,BrowserRouter as Router,Link,Switch } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Link, Switch } from 'react-router-dom'
 
 import Compontent1 from './component1'
 import Home from './pages/home/index'
@@ -22,13 +22,31 @@ import HookPage from './pages/hookPage'
 
 import myContext from './context'
 
+import ContextPage from './pages/contextPage'
+
 
 const App: React.FC = () => {
   return (
-    <myContext.Provider value={{a:1}}>
-      <HookPage />
+    <myContext.Provider value={{ a: 1 }}>
+
       <Provider {...stores}>
-        <div {...{"className":'App mmm'}}>
+        <Router>
+          <ul>
+            <li><Link to='/home'>上传图片</Link></li>
+            <li><Link to='/hook'>hook和markdown编辑器</Link></li>
+            <li><Link to='/context'>context</Link></li>
+          </ul>
+          {/* switch 用于路由守卫 每次url变化时,会执行 AuthExample 下的 逻辑*/}
+          <Switch>
+            <AuthExample />
+          </Switch>
+        </Router>
+        
+      </Provider>
+
+
+--------------------------------------------------------cssmoudle
+      <div {...{ "className": 'App mmm' }}>
           <header className={style['App-header']}>
             {/* <img src={logo} className="App-logo" alt="logo" /> */}
             <p>
@@ -42,32 +60,29 @@ const App: React.FC = () => {
             >
               Learn React
           </a>
-        
+
           </header>
 
-          <Router>
-            <Link to='/home'>dsfdsf</Link>
-            {/* switch 用于路由守卫 每次url变化时,会执行 AuthExample 下的 逻辑*/}
-            <Switch>
-              <AuthExample />
-            </Switch>
-          </Router>
+
 
 
           {/* <Button>点击</Button> */}
           {/* <Compontent1></Compontent1>
           <Home></Home> */}
         </div>
-      </Provider>
     </myContext.Provider>
   );
 }
 
-function AuthExample(props:any){
+function AuthExample(props: any) {
   console.log(props)
-  return (  
-    // <div>123</div>
-    <Route pathname={props.location.pathname} component={Home}/>
+  return (
+    <div>
+      <Route path='/home' component={Home} />
+      <Route path='/hook' component={HookPage}/>
+      <Route path='/context' component={ContextPage}/>
+    </div>
+    
   )
 }
 
